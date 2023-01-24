@@ -1,6 +1,7 @@
 package com.example.highvolumeprocessingmysql.application.controller
 
 import com.example.highvolumeprocessingmysql.domain.member.dto.MemberDto
+import com.example.highvolumeprocessingmysql.domain.member.dto.MemberNicknameHistoryDto
 import com.example.highvolumeprocessingmysql.domain.member.dto.RegisterMemberCommand
 import com.example.highvolumeprocessingmysql.domain.member.service.MemberReadService
 import com.example.highvolumeprocessingmysql.domain.member.service.MemberWriteService
@@ -32,4 +33,9 @@ class MemberController(
         memberWriteService.changeNickname(id, name)
         return memberReadService.getMember(id)
     }
+
+    @Operation(summary = "회원이름 변경내역 조회")
+    @GetMapping("/members/{id}/name-histories")
+    fun getMemberNameHistories(@PathVariable id: Long): List<MemberNicknameHistoryDto> =
+        memberReadService.getNicknameHistories(id)
 }
