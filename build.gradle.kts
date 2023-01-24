@@ -20,6 +20,7 @@ dependencies {
     val openapi3Version = "1.6.13"
     val kotestVersion = "5.5.4"
     val kotestExtVersion = "1.1.2"
+    val fixturemonkeyVersion = "0.4.11"
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -37,6 +38,9 @@ dependencies {
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
     testImplementation("io.kotest:kotest-property:$kotestVersion")
     testImplementation("io.kotest.extensions:kotest-extensions-spring:$kotestExtVersion")
+
+    // fixture-monkey
+    testImplementation("com.navercorp.fixturemonkey:fixture-monkey-starter-kotlin:$fixturemonkeyVersion")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("com.mysql:mysql-connector-j")
