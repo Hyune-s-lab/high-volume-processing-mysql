@@ -1,5 +1,6 @@
 package com.example.highvolumeprocessingmysql.application.controller
 
+import com.example.highvolumeprocessingmysql.domain.member.dto.MemberDto
 import com.example.highvolumeprocessingmysql.domain.member.dto.RegisterMemberCommand
 import com.example.highvolumeprocessingmysql.domain.member.service.MemberReadService
 import com.example.highvolumeprocessingmysql.domain.member.service.MemberWriteService
@@ -24,4 +25,11 @@ class MemberController(
     @Operation(summary = "회원정보 등록")
     @GetMapping("/members/{id}")
     fun getMember(@PathVariable id: Long) = memberReadService.getMember(id)
+
+    @Operation(summary = "회원이름 변경")
+    @PostMapping("/members/{id}/name")
+    fun changeNickname(@PathVariable id: Long, @RequestBody name: String): MemberDto {
+        memberWriteService.changeNickname(id, name)
+        return memberReadService.getMember(id)
+    }
 }

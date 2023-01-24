@@ -13,4 +13,8 @@ class MemberWriteService(private val memberRepository: MemberRepository) {
         with(command) {
             memberRepository.save(Member(nickname, email, birthday))
         }
+
+    fun changeNickname(memberId: Long, nickname: String) =
+        memberRepository.findById(memberId)?.changeNickname(nickname)
+            ?: throw NoSuchElementException()
 }
