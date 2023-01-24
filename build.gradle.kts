@@ -17,11 +17,26 @@ repositories {
 }
 
 dependencies {
+    val openapi3Version = "1.6.13"
+    val kotestVersion = "5.5.4"
+    val kotestExtVersion = "1.1.2"
+
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+    // openapi3
+    implementation("org.springdoc:springdoc-openapi-ui:$openapi3Version")
+    implementation("org.springdoc:springdoc-openapi-webflux-ui:$openapi3Version")
+    implementation("org.springdoc:springdoc-openapi-kotlin:$openapi3Version")
+
+    // kotest
+    testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
+    testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
+    testImplementation("io.kotest:kotest-property:$kotestVersion")
+    testImplementation("io.kotest.extensions:kotest-extensions-spring:$kotestExtVersion")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("com.mysql:mysql-connector-j")
