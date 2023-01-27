@@ -17,6 +17,9 @@ class MemberReadService(
         memberRepository.findById(memberId)?.toDto()
             ?: throw NoSuchElementException()
 
+    fun getMembers(memberIds: List<Long>): List<MemberDto> =
+        memberRepository.findAllByIdIn(memberIds).map { it.toDto() }
+
     fun getNicknameHistories(memberId: Long) =
         memberNicknameHistoryRepository.findAllByMemberId(memberId).map { it.toDto() }
 }
