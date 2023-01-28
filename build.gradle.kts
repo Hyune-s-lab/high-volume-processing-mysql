@@ -21,8 +21,8 @@ dependencies {
     val kotestVersion = "5.5.4"
     val kotestExtVersion = "1.1.2"
     val fixturemonkeyVersion = "0.4.11"
+    val p6spyVersion = "1.6.2"
 
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -42,8 +42,13 @@ dependencies {
     // fixture-monkey
     testImplementation("com.navercorp.fixturemonkey:fixture-monkey-starter-kotlin:$fixturemonkeyVersion")
 
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    // mysql + jdbc + p6spy
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     runtimeOnly("com.mysql:mysql-connector-j")
+    implementation("org.springframework.boot:spring-boot-starter-jdbc")
+    testImplementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:$p6spyVersion")
+
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
