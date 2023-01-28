@@ -6,5 +6,7 @@ import com.example.highvolumeprocessingmysql.domain.post.entity.Post
 
 interface PostRepository {
     fun save(post: Post): Post
+    fun saveAll(posts: List<Post>): List<Post>
+    fun deleteAll()
     fun groupByCreatedDate(request: DailyPostCountRequest): List<DailyPostCount>
 }
