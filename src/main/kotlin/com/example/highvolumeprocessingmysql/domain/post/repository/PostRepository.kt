@@ -9,4 +9,5 @@ interface PostRepository {
     fun saveAll(posts: List<Post>): List<Post>
     fun deleteAll()
     fun groupByCreatedDate(request: DailyPostCountRequest): List<DailyPostCount>
+    fun bulkInsert(posts: List<Post>)
 }

@@ -11,9 +11,10 @@ import kotlin.system.measureTimeMillis
 @SpringBootTest
 class PostBulkInsertTest(private val postRepository: PostRepository) : FunSpec({
     test("bulkInsert") {
+        val size = 10000 * 100
         var posts: List<Post>
         val elapsed = measureTimeMillis {
-            posts = (0..10000).asSequence()
+            posts = (1..size).asSequence()
                 .map {
                     PostFixtureFactory.get(
                         4L,
@@ -22,13 +23,22 @@ class PostBulkInsertTest(private val postRepository: PostRepository) : FunSpec({
                     )
                 }.toList()
         }
-        println("### 객체 생성 시간 : $elapsed")
 
-        postRepository.deleteAll()
+//        val elapsed2 = measureTimeMillis {
+//            postRepository.saveAll(posts)
+//        }
+//        postRepository.deleteAll()
 
-        val elapsed2 = measureTimeMillis {
-            postRepository.saveAll(posts)
+        val elapsed3 = measureTimeMillis {
+            postRepository.bulkInsert(
+                posts.map {
+                    it.createdAt = it.createdDate.atStartOfDay()
+                    it
+                })
         }
-        println("### DB 인서트 시간 : $elapsed2")
+
+        println("### $size 객체 생성 시간 : $elapsed ms")
+//        println("### DB jpa single insert 시간 : $elapsed2 ms")
+        println("### DB jdbc bulk insert 시간 : $elapsed3 ms")
     }
 })
