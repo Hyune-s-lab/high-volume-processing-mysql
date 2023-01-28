@@ -5,6 +5,7 @@ import com.example.highvolumeprocessingmysql.domain.post.dto.DailyPostCountReque
 import com.example.highvolumeprocessingmysql.domain.post.entity.Post
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Slice
 
 interface PostRepository {
     fun save(post: Post): Post
@@ -13,4 +14,5 @@ interface PostRepository {
     fun groupByCreatedDate(request: DailyPostCountRequest): List<DailyPostCount>
     fun bulkInsert(posts: List<Post>)
     fun findPageByMemberId(memberId: Long, pageRequest: PageRequest): Page<Post>
+    fun findSliceByMemberId(memberId: Long, pageRequest: PageRequest): Slice<Post>
 }

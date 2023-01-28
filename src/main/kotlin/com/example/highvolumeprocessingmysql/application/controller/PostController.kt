@@ -8,6 +8,7 @@ import com.example.highvolumeprocessingmysql.domain.post.service.PostReadService
 import com.example.highvolumeprocessingmysql.domain.post.service.PostWriteService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Slice
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -37,4 +38,12 @@ class PostController(
         @RequestParam size: Int
     ): Page<Post> =
         postReadService.getPagePosts(memberId, PageRequest.of(page, size))
+
+    @GetMapping("/members/{memberId}/slice")
+    fun getSlicePosts(
+        @PathVariable memberId: Long,
+        @RequestParam page: Int,
+        @RequestParam size: Int
+    ): Slice<Post> =
+        postReadService.getSlicePosts(memberId, PageRequest.of(page, size))
 }

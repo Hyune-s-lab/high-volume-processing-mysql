@@ -5,6 +5,7 @@ import com.example.highvolumeprocessingmysql.domain.post.dto.DailyPostCountReque
 import com.example.highvolumeprocessingmysql.domain.post.entity.Post
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Slice
 import org.springframework.stereotype.Repository
 
 @Repository
@@ -27,4 +28,7 @@ class PostRepositoryImpl(
 
     override fun findPageByMemberId(memberId: Long, pageRequest: PageRequest): Page<Post> =
         postJpaDao.findPageByMemberId(memberId, pageRequest)
+
+    override fun findSliceByMemberId(memberId: Long, pageRequest: PageRequest): Slice<Post> =
+        postJpaDao.findSliceByMemberId(memberId, pageRequest)
 }
