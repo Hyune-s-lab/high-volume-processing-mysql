@@ -10,6 +10,9 @@ plugins {
     kotlin("plugin.spring") version kotlinVersion
     kotlin("plugin.jpa") version kotlinVersion
     kotlin("plugin.allopen") version kotlinVersion
+
+    kotlin("kapt") version kotlinVersion
+    idea
 }
 
 group = "com.example"
@@ -32,6 +35,7 @@ dependencies {
     val kotestExtVersion = "1.1.2"
     val fixturemonkeyVersion = "0.4.11"
     val p6spyVersion = "1.6.2"
+    val querydslVersion = "5.0.0"
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -58,6 +62,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
     testImplementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:$p6spyVersion")
 
+    // querydsl 추가
+    implementation("com.querydsl:querydsl-jpa:$querydslVersion")
+    kapt("com.querydsl:querydsl-apt:$querydslVersion:jpa")
+
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
@@ -71,4 +79,12 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+idea {
+    module {
+        val kaptMain = file("build/generated/source/kapt/main")
+        sourceDirs.add(kaptMain)
+        generatedSourceDirs.add(kaptMain)
+    }
 }
