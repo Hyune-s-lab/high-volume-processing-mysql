@@ -6,6 +6,7 @@ import com.example.highvolumeprocessingmysql.application.usacase.GetTimelinePost
 import com.example.highvolumeprocessingmysql.domain.post.dto.DailyPostCount
 import com.example.highvolumeprocessingmysql.domain.post.dto.DailyPostCountRequest
 import com.example.highvolumeprocessingmysql.domain.post.dto.PostCommand
+import com.example.highvolumeprocessingmysql.domain.post.dto.PostDto
 import com.example.highvolumeprocessingmysql.domain.post.entity.Post
 import com.example.highvolumeprocessingmysql.domain.post.service.PostReadService
 import com.example.highvolumeprocessingmysql.domain.post.service.PostWriteService
@@ -43,7 +44,7 @@ class PostController(
         @PathVariable memberId: Long,
         @RequestParam page: Int,
         @RequestParam size: Int,
-    ): Page<Post> =
+    ): Page<PostDto> =
         postReadService.getPagePosts(memberId, PageRequest.of(page, size))
 
     @GetMapping("/members/{memberId}/slice")

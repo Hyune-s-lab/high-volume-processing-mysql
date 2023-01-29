@@ -2,6 +2,7 @@ package com.example.highvolumeprocessingmysql.domain.post.service
 
 import com.example.highvolumeprocessingmysql.domain.post.dto.DailyPostCount
 import com.example.highvolumeprocessingmysql.domain.post.dto.DailyPostCountRequest
+import com.example.highvolumeprocessingmysql.domain.post.dto.PostDto
 import com.example.highvolumeprocessingmysql.domain.post.entity.Post
 import com.example.highvolumeprocessingmysql.domain.post.repository.PostRepository
 import org.springframework.data.domain.Page
@@ -14,8 +15,8 @@ class PostReadService(private val postRepository: PostRepository) {
     fun getDailyPostCounts(request: DailyPostCountRequest): List<DailyPostCount> =
         postRepository.groupByCreatedDate(request)
 
-    fun getPagePosts(memberId: Long, pageRequest: PageRequest): Page<Post> =
-        postRepository.findPageByMemberId(memberId, pageRequest)
+    fun getPagePosts(memberId: Long, pageRequest: PageRequest): Page<PostDto> =
+        postRepository.findPageByMemberId(memberId, pageRequest).map { PostDto(it) }
 
     fun getSlicePosts(memberId: Long, pageRequest: PageRequest): Slice<Post> =
         postRepository.findSliceByMemberId(memberId, pageRequest)
