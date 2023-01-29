@@ -2,6 +2,7 @@ package com.example.highvolumeprocessingmysql.domain.member.service
 
 import com.example.highvolumeprocessingmysql.domain.member.dto.RegisterMemberCommand
 import com.example.highvolumeprocessingmysql.domain.member.repository.MemberRepository
+import io.kotest.core.spec.Spec
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
@@ -26,4 +27,9 @@ class MemberWriteServiceTest(
         member.nickname shouldBe command.nickname
         member.email shouldBe command.email
     }
-})
+}) {
+    override suspend fun afterSpec(spec: Spec) {
+        super.afterSpec(spec)
+        memberRepository.deleteAll()
+    }
+}
