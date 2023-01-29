@@ -7,4 +7,5 @@ import org.springframework.stereotype.Service
 @Service
 class FollowReadService(private val followRepository: FollowRepository) {
     fun getFollowings(memberId: Long): List<Follow> = followRepository.findAllByFromMemberId(memberId)
+    fun getFollowers(memberId: Long): List<Follow> = followRepository.findAllByToMemberId(memberId)
 }

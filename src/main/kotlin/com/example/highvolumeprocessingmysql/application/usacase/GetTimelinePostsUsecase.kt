@@ -17,4 +17,11 @@ class GetTimelinePostsUsecase(
         val followerMemberIds = follows.map { it.toMemberId }
         return postReadService.getSlicePosts(followerMemberIds, pageRequest)
     }
+
+//    fun executeByTimeline(memberId: Long, pageRequest: PageRequest): Slice<Post> {
+//        val pagedTimelines: Unit = timelineReadService.getTimelines(memberId, cursorRequest)
+//        val postIds: Unit = pagedTimelines.body().stream().map(Timeline::getPostId).toList()
+//        val posts: Unit = postReadService.getPostDtos(postIds)
+//        return PageCursor(pagedTimelines.nextCursorRequest(), posts)
+//    }
 }

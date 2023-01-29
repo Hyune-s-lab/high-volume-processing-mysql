@@ -1,5 +1,6 @@
 package com.example.highvolumeprocessingmysql.application.controller
 
+import com.example.highvolumeprocessingmysql.application.usacase.CreatePostUsecase
 import com.example.highvolumeprocessingmysql.application.usacase.GetTimelinePostsUsecase
 import com.example.highvolumeprocessingmysql.domain.post.dto.DailyPostCount
 import com.example.highvolumeprocessingmysql.domain.post.dto.DailyPostCountRequest
@@ -23,11 +24,13 @@ import org.springframework.web.bind.annotation.RestController
 class PostController(
     private val postWriteService: PostWriteService,
     private val postReadService: PostReadService,
-    private val getTimelinePostsUsecase: GetTimelinePostsUsecase
+    private val getTimelinePostsUsecase: GetTimelinePostsUsecase,
+    private val createPostUsecase: CreatePostUsecase
 ) {
     @PostMapping
     fun create(@RequestBody command: PostCommand): Long =
-        postWriteService.create(command)
+//        postWriteService.create(command)
+        createPostUsecase.execute(command)
 
     @GetMapping("/daily-post-counts")
     fun getDailyPostCounts(request: DailyPostCountRequest): List<DailyPostCount> =
