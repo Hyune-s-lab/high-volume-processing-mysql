@@ -1,5 +1,6 @@
 package com.example.highvolumeprocessingmysql.application.controller
 
+import com.example.highvolumeprocessingmysql.application.usacase.GetTimelinePostsUsecase
 import com.example.highvolumeprocessingmysql.domain.post.dto.DailyPostCount
 import com.example.highvolumeprocessingmysql.domain.post.dto.DailyPostCountRequest
 import com.example.highvolumeprocessingmysql.domain.post.dto.PostCommand
@@ -21,7 +22,8 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/posts")
 class PostController(
     private val postWriteService: PostWriteService,
-    private val postReadService: PostReadService
+    private val postReadService: PostReadService,
+    private val getTimelinePostsUsecase: GetTimelinePostsUsecase
 ) {
     @PostMapping
     fun create(@RequestBody command: PostCommand): Long =
@@ -46,4 +48,13 @@ class PostController(
         @RequestParam size: Int
     ): Slice<Post> =
         postReadService.getSlicePosts(memberId, PageRequest.of(page, size))
+
+    @GetMapping("/members/{memberId}/timeline")
+    fun getTimeline(
+        @PathVariable memberId: Long,
+        @RequestParam page: Int,
+        @RequestParam size: Int
+    ): Slice<Post> {
+        return getTimelinePostsUsecase.execute(memberId, PageRequest.of(page, size));
+    }
 }

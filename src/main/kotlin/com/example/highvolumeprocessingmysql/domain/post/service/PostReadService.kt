@@ -19,4 +19,7 @@ class PostReadService(private val postRepository: PostRepository) {
 
     fun getSlicePosts(memberId: Long, pageRequest: PageRequest): Slice<Post> =
         postRepository.findSliceByMemberId(memberId, pageRequest)
+
+    fun getSlicePosts(memberIds: List<Long>, pageRequest: PageRequest): Slice<Post> =
+        postRepository.findSliceByMemberIdIn(memberIds, pageRequest)
 }

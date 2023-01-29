@@ -26,4 +26,5 @@ interface PostJpaDao : JpaRepository<Post, Long> {
 
     fun findPageByMemberId(memberId: Long, pageRequest: PageRequest): Page<Post>
     fun findSliceByMemberId(memberId: Long, pageRequest: PageRequest): Slice<Post>
+    fun findSliceByMemberIdIn(memberIds: List<Long>, pageRequest: PageRequest): Slice<Post>
 }
