@@ -6,8 +6,11 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Slice
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Lock
 import org.springframework.data.jpa.repository.Query
 import java.time.LocalDate
+import java.util.*
+import javax.persistence.LockModeType
 
 interface PostJpaDao : JpaRepository<Post, Long> {
     @Query(
@@ -21,11 +24,14 @@ interface PostJpaDao : JpaRepository<Post, Long> {
     fun findAllByMemberIdAndCreatedDateBetween(
         memberId: Long,
         firstDate: LocalDate,
-        lastDate: LocalDate
+        lastDate: LocalDate,
     ): List<DailyPostCount>
 
     fun findPageByMemberId(memberId: Long, pageRequest: PageRequest): Page<Post>
     fun findSliceByMemberId(memberId: Long, pageRequest: PageRequest): Slice<Post>
     fun findSliceByMemberIdIn(memberIds: List<Long>, pageRequest: PageRequest): Slice<Post>
     fun findAllByIdIn(postIds: List<Long>): List<Post>
+
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    fun findWithPessimisticById(id: Long): Optional<Post>
 }

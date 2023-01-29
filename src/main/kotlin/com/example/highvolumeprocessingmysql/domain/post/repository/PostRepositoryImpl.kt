@@ -38,6 +38,9 @@ class PostRepositoryImpl(
     override fun findAllByIdIn(postIds: List<Long>): List<Post> =
         postJpaDao.findAllByIdIn(postIds)
 
-    override fun findById(postId: Long): Post? =
-        postJpaDao.findById(postId).orElse(null)
+    override fun findById(postId: Long, requiredLock: Boolean): Post? =
+        when {
+            requiredLock -> postJpaDao.findWithPessimisticById(postId).orElse(null)
+            else -> postJpaDao.findById(postId).orElse(null)
+        }
 }

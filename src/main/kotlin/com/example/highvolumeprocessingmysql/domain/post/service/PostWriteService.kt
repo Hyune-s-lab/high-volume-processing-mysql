@@ -14,7 +14,7 @@ class PostWriteService(private val postRepository: PostRepository) {
     }
 
     fun likePost(postId: Long) {
-        postRepository.findById(postId)?.let {
+        postRepository.findById(postId, true)?.let {
             it.incrementLikeCount()
             postRepository.save(it)
         } ?: throw NoSuchElementException()
