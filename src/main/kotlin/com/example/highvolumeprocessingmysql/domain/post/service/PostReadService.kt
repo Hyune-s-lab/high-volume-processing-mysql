@@ -25,4 +25,7 @@ class PostReadService(private val postRepository: PostRepository) {
 
     fun getPosts(postIds: List<Long>): List<Post> =
         postRepository.findAllByIdIn(postIds)
+
+    fun getPost(postId: Long): Post =
+        postRepository.findById(postId, false) ?: throw NoSuchElementException()
 }

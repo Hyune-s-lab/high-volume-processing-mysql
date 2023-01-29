@@ -1,5 +1,6 @@
 package com.example.highvolumeprocessingmysql.application.controller
 
+import com.example.highvolumeprocessingmysql.application.usacase.CreatePostLikeUsecase
 import com.example.highvolumeprocessingmysql.application.usacase.CreatePostUsecase
 import com.example.highvolumeprocessingmysql.application.usacase.GetTimelinePostsUsecase
 import com.example.highvolumeprocessingmysql.domain.post.dto.DailyPostCount
@@ -26,6 +27,7 @@ class PostController(
     private val postReadService: PostReadService,
     private val getTimelinePostsUsecase: GetTimelinePostsUsecase,
     private val createPostUsecase: CreatePostUsecase,
+    private val createPostLikeUsecase: CreatePostLikeUsecase,
 ) {
     @PostMapping
     fun create(@RequestBody command: PostCommand): Long =
@@ -64,4 +66,10 @@ class PostController(
     @PostMapping("/{postId}/like/v1")
     fun like(@PathVariable postId: Long) =
         postWriteService.likePost(postId)
+
+    @PostMapping("/{postId}/like/v2")
+    fun like(
+        @PathVariable postId: Long,
+        @RequestParam memberId: Long,
+    ) = createPostLikeUsecase.execute(postId, memberId)
 }
