@@ -12,14 +12,16 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class MemberWriteService(
     private val memberRepository: MemberRepository,
-    private val memberNicknameHistoryRepository: MemberNicknameHistoryRepository
+    private val memberNicknameHistoryRepository: MemberNicknameHistoryRepository,
 ) {
-    fun create(command: RegisterMemberCommand) =
+    fun create(command: RegisterMemberCommand): Member =
         with(command) {
-            memberRepository.save(Member(nickname, email, birthday))
+            val member = memberRepository.save(Member(nickname, email, birthday))
+            member.saveMemberNicknameHistory()
+            member
         }
 
-    fun changeNickname(memberId: Long, nickname: String) =
+    fun changeNickname(memberId: Long, nickname: String): Unit =
         memberRepository.findById(memberId)?.let {
             it.changeNickname(nickname)
             it.saveMemberNicknameHistory()
