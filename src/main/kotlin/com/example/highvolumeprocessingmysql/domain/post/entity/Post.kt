@@ -9,6 +9,10 @@ class Post constructor(
     val memberId: Long,
     val contents: String,
     val createdDate: LocalDate = LocalDate.now(),
-    val likeCount: Long = 0,
-    val version: Long = 0
-) : BaseEntity()
+    var likeCount: Long = 0,
+    val version: Long = 0,
+) : BaseEntity() {
+    fun incrementLikeCount() {
+        likeCount += 1
+    }
+}

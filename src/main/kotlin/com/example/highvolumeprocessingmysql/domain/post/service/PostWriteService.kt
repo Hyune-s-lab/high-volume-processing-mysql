@@ -12,4 +12,11 @@ class PostWriteService(private val postRepository: PostRepository) {
     fun create(command: PostCommand): Long {
         return postRepository.save(Post(command.memberId, command.contents)).id!!
     }
+
+    fun likePost(postId: Long) {
+        postRepository.findById(postId)?.let {
+            it.incrementLikeCount()
+            postRepository.save(it)
+        } ?: throw NoSuchElementException()
+    }
 }

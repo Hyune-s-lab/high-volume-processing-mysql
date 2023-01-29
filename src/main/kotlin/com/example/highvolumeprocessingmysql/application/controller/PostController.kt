@@ -25,7 +25,7 @@ class PostController(
     private val postWriteService: PostWriteService,
     private val postReadService: PostReadService,
     private val getTimelinePostsUsecase: GetTimelinePostsUsecase,
-    private val createPostUsecase: CreatePostUsecase
+    private val createPostUsecase: CreatePostUsecase,
 ) {
     @PostMapping
     fun create(@RequestBody command: PostCommand): Long =
@@ -40,7 +40,7 @@ class PostController(
     fun getPagePosts(
         @PathVariable memberId: Long,
         @RequestParam page: Int,
-        @RequestParam size: Int
+        @RequestParam size: Int,
     ): Page<Post> =
         postReadService.getPagePosts(memberId, PageRequest.of(page, size))
 
@@ -48,7 +48,7 @@ class PostController(
     fun getSlicePosts(
         @PathVariable memberId: Long,
         @RequestParam page: Int,
-        @RequestParam size: Int
+        @RequestParam size: Int,
     ): Slice<Post> =
         postReadService.getSlicePosts(memberId, PageRequest.of(page, size))
 
@@ -56,8 +56,12 @@ class PostController(
     fun getTimeline(
         @PathVariable memberId: Long,
         @RequestParam page: Int,
-        @RequestParam size: Int
+        @RequestParam size: Int,
     ): Slice<Post> =
 //        getTimelinePostsUsecase.execute(memberId, PageRequest.of(page, size))
         getTimelinePostsUsecase.executeByTimeline(memberId, PageRequest.of(page, size))
+
+    @PostMapping("/{postId}/like/v1")
+    fun like(@PathVariable postId: Long) =
+        postWriteService.likePost(postId)
 }

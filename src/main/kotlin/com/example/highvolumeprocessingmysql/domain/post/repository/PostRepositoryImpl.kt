@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository
 @Repository
 class PostRepositoryImpl(
     private val postJpaDao: PostJpaDao,
-    private val postJdbcDao: PostJdbcDao
+    private val postJdbcDao: PostJdbcDao,
 ) : PostRepository {
     override fun save(post: Post): Post = postJpaDao.save(post)
 
@@ -37,4 +37,7 @@ class PostRepositoryImpl(
 
     override fun findAllByIdIn(postIds: List<Long>): List<Post> =
         postJpaDao.findAllByIdIn(postIds)
+
+    override fun findById(postId: Long): Post? =
+        postJpaDao.findById(postId).orElse(null)
 }

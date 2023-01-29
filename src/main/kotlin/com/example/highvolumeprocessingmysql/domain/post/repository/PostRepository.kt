@@ -17,4 +17,5 @@ interface PostRepository {
     fun findSliceByMemberId(memberId: Long, pageRequest: PageRequest): Slice<Post>
     fun findSliceByMemberIdIn(memberIds: List<Long>, pageRequest: PageRequest): Slice<Post>
     fun findAllByIdIn(postIds: List<Long>): List<Post>
+    fun findById(postId: Long): Post?
 }
