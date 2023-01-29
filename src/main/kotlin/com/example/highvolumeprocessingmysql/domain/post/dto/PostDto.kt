@@ -10,5 +10,11 @@ data class PostDto(
     val createdAt: LocalDateTime,
     val likeCount: Long,
 ) {
-    constructor(post: Post) : this(post.id!!, post.memberId, post.contents, post.createdAt!!, post.likeCount)
+    constructor(post: Post, likeCount: Long) : this(
+        post.id!!,
+        post.memberId,
+        post.contents,
+        post.createdAt!!,
+        likeCount
+    )
 }

@@ -9,4 +9,7 @@ class PostLikeRepositoryImpl(
 ) : PostLikeRepository {
     override fun save(postLike: PostLike): PostLike =
         postLikeJpaDao.save(postLike)
+
+    override fun countByPostId(postId: Long): Long =
+        postLikeJpaDao.countByPostId(postId)
 }
