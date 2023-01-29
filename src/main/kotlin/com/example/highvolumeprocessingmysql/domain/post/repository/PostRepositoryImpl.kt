@@ -34,4 +34,7 @@ class PostRepositoryImpl(
 
     override fun findSliceByMemberIdIn(memberIds: List<Long>, pageRequest: PageRequest): Slice<Post> =
         postJpaDao.findSliceByMemberIdIn(memberIds, pageRequest)
+
+    override fun findAllByIdIn(postIds: List<Long>): List<Post> =
+        postJpaDao.findAllByIdIn(postIds)
 }

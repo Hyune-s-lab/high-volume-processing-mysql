@@ -57,7 +57,7 @@ class PostController(
         @PathVariable memberId: Long,
         @RequestParam page: Int,
         @RequestParam size: Int
-    ): Slice<Post> {
-        return getTimelinePostsUsecase.execute(memberId, PageRequest.of(page, size));
-    }
+    ): Slice<Post> =
+//        getTimelinePostsUsecase.execute(memberId, PageRequest.of(page, size))
+        getTimelinePostsUsecase.executeByTimeline(memberId, PageRequest.of(page, size))
 }
